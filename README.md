@@ -8,3 +8,11 @@ Django後台管理 -> http://127.0.0.1:8000/admin 或 http://localhost:8000/admi
 查詢訂單 -> http://127.0.0.1:8000/order/search/   
 所有訂單 -> http://127.0.0.1:8000/orders/   
 新增餐點 -> http://127.0.0.1:8000/meal_create/   
+
+參考文獻:  
+[1] j4Pedro- Django 餐點訂購系統  
+https://hackmd.io/@j4Pedro/rJSiLpqLL  
+[2] Percy- Day1 : 認識 Django  
+https://ithelp.ithome.com.tw/articles/10199515  
+[3] Django  
+https://www.djangoproject.com  
