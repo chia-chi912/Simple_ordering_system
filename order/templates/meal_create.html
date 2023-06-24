@@ -1,0 +1,61 @@
+{% load static %}
+
+<head>
+  <title>新增餐點</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+  <style>
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-size: 18px;
+    }
+
+    button[type="submit"] {
+      margin: 0 auto;
+      display: block;
+    }
+
+    input[type="text"] {
+      width: 10em;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+
+    .left {
+      font-size: 14px;
+      float: right;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <form method="post" action="{% url 'meal_create' %}">
+    {% csrf_token %}
+    <h1>新增餐點</h1>
+    <label>
+      <span>新餐點名稱 : </span>
+      <input type="text" name="name" class="name">
+    </label>
+    <label>
+      <span>價格 : </span>
+      <input type="number" name="price" value="0" min="0">
+    </label>
+    <br>
+    <button type="submit">餐點新增</button>
+    <a href="../order" class="left">去點餐&gt;</a>
+  </form>
+</body>

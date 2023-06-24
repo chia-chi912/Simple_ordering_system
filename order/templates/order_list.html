@@ -1,0 +1,47 @@
+{% load static %}
+
+<head>
+  <title>所有訂單</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+  <style>
+    .ffform {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+{% for order in orders %}
+<br>
+<div class="ffform">
+
+  <h3>訂單編號: {{ order.order_id }}</h3>
+  <span class="{% if order.is_completed %}completed{% else %}not-completed{% endif %}">
+    {% if order.is_completed %}
+    訂單已完成<br>
+    {% else %}
+    訂單未完成<br>
+    {% endif %}
+  </span>
+  訂單成立時間 : {{ order.created_at }}<br>
+  顧客電話 : {{ order.customer_phone }}<br>
+  {% for item in order.items.all %}
+  {{ item.meal.name }}(${{ item.meal.price }}) : {{ item.quantity }}個<br>
+  {% endfor %}
+  備註 : {{order.notes}}<br>
+  <b>訂單金額 : ${{ order.total_amount }}</b><br>
+
+  <form method="POST" action="{% url 'update_order' order_id=order.id %}">
+    {% csrf_token %}
+    {% if order.is_completed %}
+    <input type="submit" value="標記為未完成" class="completed-button">
+    {% else %}
+    <input type="submit" value="標記為已完成" class="not-completed-button">
+    {% endif %}
+  </form>
+</div>
+{% endfor %}

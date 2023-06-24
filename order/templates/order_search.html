@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>搜尋歷史訂單</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+  <style>
+    form {
+      max-width: 500px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"] {
+      width: 10em;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>歷史訂單搜尋：</h2>
+  <form method="POST" action="{% url 'order_search' %}">
+    {% csrf_token %}
+    <label for="customer_phone">請輸入電話號碼：</label>
+    <input type="text" name="customer_phone">
+    <button type="submit">搜尋</button>
+  </form>
+
+  {% if orders %}
+  <h2>搜尋結果：</h2>
+  <ul>
+    {% for order in orders %}
+    <li>訂單編號：{{ order.order_id }}</li>
+    {% for item in order.items.all %}
+    {{ item.meal.name }}(${{item.meal.price}}) : {{ item.quantity }}個<br>
+    {% endfor %}
+    備註 : {{order.notes}}<br>
+    訂單金額 : <b>${{order.total_amount}}</b><br>
+    訂單成立時間 : {{order.created_at}}<br>
+    <span class="{% if order.is_completed %}completed{% else %}not-completed{% endif %}">
+      {% if order.is_completed %}
+      訂單已完成<br><br>
+      {% else %}
+      訂單未完成<br><br>
+      {% endif %}
+    </span>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</body>
+
+</html>

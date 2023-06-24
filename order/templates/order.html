@@ -1,0 +1,65 @@
+{% load static %}
+
+<head>
+  <title>點餐</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+  <style>
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-size: 18px;
+    }
+
+    button[type="submit"] {
+      margin: 0 auto;
+      display: block;
+    }
+
+    .notetext {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+      margin: 10px auto;
+    }
+
+    .customer_phone {
+      width: 10em;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <form method="post" action="{% url 'order' %}">
+    {% csrf_token %}
+    <h1>點餐</h1>
+    <label>
+      <span>請輸入您的電話:</span>
+      <input type="text" name="customer_phone" class="customer_phone">
+    </label>
+    <br>
+    {% for meal in meals %}
+    <label>
+      <input type="checkbox" name="meal" value="{{ meal.id }}">
+      <span>{{ meal.name }} - ${{ meal.price }}</span>
+      <input type="number" name="quantity{{ forloop.counter }}" value="1" min="1">
+    </label>
+    <br>
+    {% endfor %}
+
+    <input type="text" name="note" class="notetext" placeholder="備註">
+    <button type="submit">提交訂單</button>
+  </form>
+</body>
