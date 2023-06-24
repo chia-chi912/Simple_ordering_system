@@ -1,5 +1,5 @@
-此專案是建立在Django框架的一個極簡點餐系統
-使用Visual Studio Code撰寫，Anaconda的env環境下測試
+此專案是建立在Django框架的一個極簡點餐系統。
+使用Visual Studio Code撰寫，Anaconda的env環境下測試。
 如果需要使用需要先安裝Django套件 -> pip install Django
 使Server執行 -> python manage.py runserver
 Django後台管理 -> http://127.0.0.1:8000/admin 或 http://localhost:8000/admin
